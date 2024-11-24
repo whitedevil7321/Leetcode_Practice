@@ -1,0 +1,20 @@
+class Solution:
+    def maxMatrixSum(self, matrix: List[List[int]]) -> int:
+        sum =0
+        min_val=float('inf')
+        neg_val=0
+        m=len(matrix)
+        n=len(matrix[0])
+        for i in range(m):
+            for j in range(n):
+                sum+=abs(matrix[i][j])
+                min_val=min(min_val,abs(matrix[i][j]))
+                if matrix[i][j]<0:
+                    neg_val+=1
+
+        if (neg_val%2==0):
+            return sum
+        return sum-min_val*2                
+
+
+        
