@@ -1,0 +1,36 @@
+from collections import Counter
+
+class Solution:
+    def takeCharacters(self, s: str, k: int) -> int:
+        # Count the total number of each character in the string
+        total_count = Counter(s)
+        
+        # Check if it is possible to collect at least k of each character
+        if total_count['a'] < k or total_count['b'] < k or total_count['c'] < k:
+            return -1  # Not enough characters to meet the requirement
+        
+        n = len(s)
+        # Initial left and right boundaries for the sliding window
+        left = 0
+        right = 0
+        
+        # Count the characters we can keep in the middle to minimize the sides taken
+        current_count = {'a': 0, 'b': 0, 'c': 0}
+        max_window_size = 0  # The size of the maximum valid middle window
+        
+        # Iterate using the right pointer to extend the window
+        for right in range(n):
+            current_count[s[right]] += 1
+            
+            # Check if we need to shrink the window from the left
+            while current_count['a'] > total_count['a'] - k or \
+                  current_count['b'] > total_count['b'] - k or \
+                  current_count['c'] > total_count['c'] - k:
+                current_count[s[left]] -= 1
+                left += 1
+            
+            # Update the size of the maximum valid middle window
+            max_window_size = max(max_window_size, right - left + 1)
+        
+        # The result is the total length minus the size of the largest valid middle window
+        return n - max_window_size
