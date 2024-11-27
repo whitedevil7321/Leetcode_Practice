@@ -1,0 +1,42 @@
+from collections import deque, defaultdict
+class Solution:
+    def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
+        
+        graph = defaultdict(list)
+        for i in range(n - 1):
+            graph[i].append(i + 1)
+        
+        answer = []
+        
+        # Process each query
+        for u, v in queries:
+            # Add the new road
+            graph[u].append(v)
+            
+            # Perform BFS to find the shortest path from 0 to n-1
+            queue = deque([(0, 0)])  # (current_node, current_distance)
+            visited = set()
+            found = False
+            
+            while queue and not found:
+                node, dist = queue.popleft()
+                if node in visited:
+                    continue
+                visited.add(node)
+                
+                # If we reach the target node
+                if node == n - 1:
+                    answer.append(dist)
+                    found = True
+                    break
+                
+                # Explore neighbors
+                for neighbor in graph[node]:
+                    if neighbor not in visited:
+                        queue.append((neighbor, dist + 1))
+            
+            # If BFS completes without finding the target (should not happen)
+            if not found:
+                answer.append(float('inf'))
+        
+        return answer   
