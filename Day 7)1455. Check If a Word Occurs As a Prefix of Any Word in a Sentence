@@ -1,0 +1,8 @@
+class Solution:
+    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:
+        # Split sentence into words and enumerate them starting from 1
+        for i, word in enumerate(sentence.split(), 1):
+            # Check if current word starts with searchWord
+            if word.startswith(searchWord):
+                return i  # Return the 1-index position of the word
+        return -1  # Return -1 if no prefix match is found in any words
