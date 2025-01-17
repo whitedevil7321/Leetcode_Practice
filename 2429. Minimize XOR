@@ -1,0 +1,22 @@
+class Solution:
+    def minimizeXor(self, num1: int, num2: int) -> int:
+        set_bits_needed = bin(num2).count('1')  # Count of set bits in num2
+        result = 0
+
+        # Step 1: Match set bits with num1 from MSB to LSB
+        for i in range(31, -1, -1):
+            if set_bits_needed == 0:
+                break
+            if num1 & (1 << i):  # If the i-th bit is set in num1
+                result |= (1 << i)  # Set the i-th bit in result
+                set_bits_needed -= 1
+
+        # Step 2: If more bits need to be set, fill from LSB
+        for i in range(32):
+            if set_bits_needed == 0:
+                break
+            if not (result & (1 << i)):  # If the i-th bit is not set
+                result |= (1 << i)
+                set_bits_needed -= 1
+
+        return result
