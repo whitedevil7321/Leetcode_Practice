@@ -1,0 +1,23 @@
+from typing import List
+import heapq
+
+class Solution:
+    def minCost(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        directions = {1: (0, 1), 2: (0, -1), 3: (1, 0), 4: (-1, 0)}
+        heap = [(0, 0, 0)]  # (cost, row, col)
+        visited = [[False] * n for _ in range(m)]
+        
+        while heap:
+            cost, row, col = heapq.heappop(heap)
+            if row == m - 1 and col == n - 1:
+                return cost
+            if visited[row][col]:
+                continue
+            visited[row][col] = True
+            
+            for d, (dr, dc) in directions.items():
+                new_row, new_col = row + dr, col + dc
+                if 0 <= new_row < m and 0 <= new_col < n:
+                    new_cost = cost if grid[row][col] == d else cost + 1
+                    heapq.heappush(heap, (new_cost, new_row, new_col))
