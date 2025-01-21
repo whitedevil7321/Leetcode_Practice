@@ -1,0 +1,32 @@
+from typing import List
+
+class Solution:
+    def firstCompleteIndex(self, arr: List[int], mat: List[List[int]]) -> int:
+        # Dimensions of the matrix
+        m, n = len(mat), len(mat[0])
+        
+        # Create a mapping of numbers in the matrix to their positions (row, column)
+        pos_map = {}
+        for r in range(m):
+            for c in range(n):
+                pos_map[mat[r][c]] = (r, c)
+        
+        # Initialize row and column painting counters
+        row_painted = [0] * m
+        col_painted = [0] * n
+        
+        # Process each number in arr
+        for i, num in enumerate(arr):
+            # Get the position of the number in the matrix
+            r, c = pos_map[num]
+            
+            # Increment the painted counters for the corresponding row and column
+            row_painted[r] += 1
+            col_painted[c] += 1
+            
+            # Check if the current row or column is fully painted
+            if row_painted[r] == n or col_painted[c] == m:
+                return i
+        
+        # If no row or column is fully painted (shouldn't reach here due to problem constraints)
+        return -1
