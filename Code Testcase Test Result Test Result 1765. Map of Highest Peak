@@ -1,0 +1,32 @@
+from collections import deque
+from typing import List
+
+class Solution:
+    def highestPeak(self, isWater: List[List[int]]) -> List[List[int]]:
+        m, n = len(isWater), len(isWater[0])
+        
+        # Initialize the height matrix with -1 for land cells, 0 for water cells
+        height = [[-1] * n for _ in range(m)]
+        queue = deque()
+        
+        # Add all water cells to the queue and set their height to 0
+        for i in range(m):
+            for j in range(n):
+                if isWater[i][j] == 1:
+                    height[i][j] = 0
+                    queue.append((i, j))
+        
+        # Directions for moving up, down, left, and right
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        
+        # Perform BFS
+        while queue:
+            x, y = queue.popleft()
+            for dx, dy in directions:
+                nx, ny = x + dx, y + dy
+                # If the neighboring cell is within bounds and unvisited
+                if 0 <= nx < m and 0 <= ny < n and height[nx][ny] == -1:
+                    height[nx][ny] = height[x][y] + 1
+                    queue.append((nx, ny))
+        
+        return height
