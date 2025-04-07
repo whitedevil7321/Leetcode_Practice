@@ -1,0 +1,9 @@
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        size1=len(nums)
+        size2=len(set(nums))
+        if size1==size2:
+            return False
+        else:
+            return True    
+        
