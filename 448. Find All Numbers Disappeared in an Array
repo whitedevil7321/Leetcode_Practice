@@ -1,0 +1,11 @@
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        missing=[]
+        set_nums=set(nums)
+        #if length_of_array not in nums:
+        #    missing.append(length_of_array)
+        for i in range(1,len(nums)+1):
+            if i not in set_nums:
+                missing.append(i)
+
+        return missing
