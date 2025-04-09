@@ -1,0 +1,15 @@
+from typing import List
+
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        sorted_nums = sorted(nums)
+        num_to_smaller = {}
+        
+        for i, num in enumerate(sorted_nums):
+            if num not in num_to_smaller:
+                num_to_smaller[num] = i
+
+        result = [num_to_smaller[num] for num in nums]
+        
+
+        return result 
