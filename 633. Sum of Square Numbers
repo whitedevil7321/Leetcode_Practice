@@ -1,0 +1,13 @@
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        front=0
+        rear=int(math.isqrt(c))
+        while front<=rear:
+            current_sum=(front*front)+(rear*rear)
+            if current_sum==c:
+                return True
+            if current_sum<c:
+                front+=1
+            else:
+                rear-=1
+        return False        
