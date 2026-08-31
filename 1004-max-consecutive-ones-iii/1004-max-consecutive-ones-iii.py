@@ -11,16 +11,12 @@ class Solution:
                 while zeros>k:
                     if nums[back]==0:
                         zeros-=1
-                    back+=1
-                
+                    back+=1            
                 max_count=max(max_count,front-back+1)
                 front+=1
-            else:
-                
+            else:           
                 max_count=max(max_count,front-back+1)
-                front+=1
-            
-                
+                front+=1       
         return max_count
 
                 
