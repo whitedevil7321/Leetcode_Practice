@@ -13,7 +13,7 @@ class Solution:
                 r+=1
             else:
                 if seen[s[r]]>=l:
-                    l=seen[s[r]]+1
+                    l=max(l,seen[s[r]]+1)
                 seen[s[r]]=r
                 maxi=max(maxi,r-l+1)
                 r+=1
